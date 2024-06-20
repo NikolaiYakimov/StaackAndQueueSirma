@@ -30,8 +30,7 @@ public class Main {
                     redoStack.push(printQueue.poll());
                 }
                 System.out.println();
-                System.out.println(redoStack);
-                PrintCurrentState(redoStack);
+
                 undoStack.clear();
 
             } else if (command.equals("Undo()")) {

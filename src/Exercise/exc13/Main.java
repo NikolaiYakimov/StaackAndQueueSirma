@@ -9,7 +9,6 @@ public class Main {
     public static void main(String[] args) {
         Deque<String> undoStack = new ArrayDeque<>();
         Deque<String> redoStack = new ArrayDeque<>();
-        ArrayDeque<String> printQueue = new ArrayDeque<>();
         Scanner scanner = new Scanner(System.in);
 
 
@@ -18,60 +17,36 @@ public class Main {
             if (command.startsWith("Insert(\"")) {
                 String text = command.substring(8, command.length() - 2);
                 redoStack.addLast(text);
+                printTheStack(redoStack);
 
-
-                for (String el : redoStack) {
-                    printQueue.push(redoStack.pop());
-                }
-                for (String el : printQueue) {
-                    System.out.print(el + " ");
-                }
-                for (String el : printQueue) {
-                    redoStack.push(printQueue.poll());
-                }
-                System.out.println();
-
-                undoStack.clear();
 
             } else if (command.equals("Undo()")) {
                 if (!redoStack.isEmpty()) {
                     String text = redoStack.removeLast();
                     undoStack.push(text);
                 }
-                for (String el : redoStack) {
-                    printQueue.push(redoStack.pop());
-                }
-                for (String el : printQueue) {
-                    System.out.print(el + " ");
-                }
-                for (String el : printQueue) {
-                    redoStack.push(printQueue.poll());
-                }
-                System.out.println();
+
+                printTheStack(redoStack);
 
 
             } else if (command.equals("Redo()")) {
                 if (!undoStack.isEmpty()) {
                     String text = undoStack.pop();
-                    redoStack.push(text);
+                    redoStack.addLast(text);
                 }
-                for (var String : redoStack) {
-                    printQueue.push(redoStack.pop());
-                }
-                for (String el : printQueue) {
-                    System.out.print(el + " ");
-                }
-                for (String el : printQueue) {
-                    redoStack.push(printQueue.poll());
-                }
-                System.out.println();
+                printTheStack(redoStack);
 
             } else if (command.equals("End")) {
-                for (var el : redoStack) {
-                    System.out.print(el + " ");
-                }
+                printTheStack(redoStack);
                 break;
             }
         }
+
     }
+        public static void printTheStack(Deque<String> stack){
+            for(String el:stack){
+                System.out.print(el+" ");
+            }
+            System.out.println();
+        }
 }
